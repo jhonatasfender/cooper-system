@@ -12,7 +12,7 @@ export function fetchPost(action$) {
     .map(action => action.payload)
     .switchMap(id => {
       return Observable.fromPromise(
-        axios.get(`http://localhost:8081/posts/${id}`)
+        axios.get(`http://localhost:8888/one/${id}`)
       ).map(res => postsActions.fetchPostSuccess(res.data));
     });
 }
@@ -22,7 +22,7 @@ export function fetchPosts(action$) {
     .map(action => action.payload)
     .switchMap(params => {
       return Observable.fromPromise(
-        axios.get(`http://localhost:8081/posts?${querystring.stringify(params)}`)
+        axios.get(`http://localhost:8888/list`)
       ).map(res => postsActions.fetchPostsSuccess(res.data, params));
     });
 }
@@ -33,7 +33,7 @@ export function updatePost(action$) {
     .switchMap(post => {
       return Observable.merge(
         Observable.fromPromise(
-          axios.put(`http://localhost:8081/posts/${post.id}`, post)
+          axios.put(`http://localhost:8888/posts/${post.id}`, post)
         ).map(res => postsActions.updatePostSuccess(res.data)),
         Observable.of(push('/posts'))
       );
@@ -46,7 +46,7 @@ export function createPost(action$) {
     .switchMap(post => {
       return Observable.merge(
         Observable.fromPromise(
-          axios.post(`http://localhost:8081/posts`, post)
+          axios.post(`http://localhost:8888/posts`, post)
         ).map(res => postsActions.createPostSuccess(res.data)),
         Observable.of(push('/posts'))
       );
@@ -58,7 +58,7 @@ export function deletePost(action$) {
     .map(action => action.payload)
     .switchMap(post => {
       return Observable.fromPromise(
-        axios.delete(`http://localhost:8081/posts/${post.id}`)
+        axios.delete(`http://localhost:8888/posts/${post.id}`)
       ).map(res => postsActions.deletePostSuccess(post));
     });
 }

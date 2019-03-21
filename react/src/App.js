@@ -9,7 +9,7 @@ import { Auth } from './services/Auth';
 import {
   Login,
   Dashboard,
-  PostsIndex,
+  ClientsIndex,
   PostsEdit,
 } from './containers/index';
 
@@ -52,7 +52,7 @@ export default () => {
         <Route path="/login" component={Login} />
         <Route path="/" component={App}>
           <IndexRoute component={Dashboard} />
-          <Route path="/posts" component={PostsIndex} />
+          <Route path="/posts" component={ClientsIndex} />
           <Route path="/posts/new" component={PostsEdit} />
           <Route path="/posts/:postId" component={PostsEdit} />
         </Route>

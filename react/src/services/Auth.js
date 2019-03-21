@@ -13,8 +13,9 @@ export const Auth = {
     return !!localStorage.getItem('token');
   },
   login({email, password}) {
-    return axios.post(`http://localhost:8081/login`, {email, password})
+    return axios.post(`http://localhost:8888/login`, {email, password})
       .then((res) => {
+        console.log(res.data);
         let {token, user} = res.data;
         localStorage.setItem('profile', JSON.stringify(user));
         localStorage.setItem('token', token);

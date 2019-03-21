@@ -32,6 +32,11 @@ public class ClientController {
 	public Optional<Client> one(@PathVariable String id) {
 		return this.clientRepository.findById(id);
 	}
+	
+	@PostMapping("/login")
+	public String login() {
+		return "{}";
+	}
 
 	@PostMapping("/add")
 	public Client add(@RequestBody Client client) {
