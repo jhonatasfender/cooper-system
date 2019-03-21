@@ -1,0 +1,59 @@
+version: "2.0"
+
+services:
+  mongo:
+    image: mongo:3.4
+    hostname: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodata:/data/db
+    networks:
+      - cooper-system
+
+  back:
+    build:
+      context: ../back/project
+      dockerfile: Dockerfile
+    image: back
+    environment:
+      - SPRING_DATA_MONGODB_HOST=mongo
+    ports:
+      - "8888:8888"
+    networks:
+      - cooper-system
+
+  angular:
+    build:
+      context: ../angular
+      dockerfile: Dockerfile
+    image: angular
+    volumes:
+      - ../angular/node_modules:/var/www/node_modules
+    ports:
+      - "8900:80"
+    networks:
+      - cooper-system
+
+  react:
+    build:
+      context: ../react
+      dockerfile: Dockerfile
+    image: react
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ../react/node_modules:/app/node_modules
+      - ../react/package.json:/app/package
+      - .:/app
+    networks:
+      - cooper-system
+
+networks:
+  cooper-system:
+
+# 
+#  docker-compose -f docker/docker-compose.yml up --build angular
+#  docker-compose -f docker/docker-compose.yml up --build react
+#  docker-compose -f docker/docker-compose.yml up --build mongo
+# 
