@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router';
-import { ClientsList } from '../components/posts/ClientsList';
+import { ClientsList } from '../components/client/ClientsList';
 import { postsActions, postsSelectors } from '../store/posts/index';
 
 @connect(
@@ -22,7 +22,7 @@ export class ClientsIndex extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.deletePost = this.deleteClient.bind(this);
+    this.deleteClient = this.deleteClient.bind(this);
   }
 
   componentDidMount() {
@@ -47,10 +47,10 @@ export class ClientsIndex extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-6 text-right">
-            <Link to="/posts/new" className="btn btn-primary">Cadastar Cliente</Link>
+            <Link to="/client/new" className="btn btn-primary">Cadastar Cliente</Link>
           </div>
         </div>
-        { client.length > 0 && <ClientsList clients={client} onDelete={this.deletePost}/> }
+        { client.length > 0 && <ClientsList clients={client} onDelete={this.deleteClient}/> }
       </div>
     );
   }

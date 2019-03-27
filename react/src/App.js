@@ -10,7 +10,7 @@ import {
   Login,
   Dashboard,
   ClientsIndex,
-  PostsEdit,
+  ClientsEdit,
 } from './containers/index';
 
 require('./app.scss');
@@ -25,8 +25,8 @@ let App = ({children}) => {
           <IndexLinkContainer to="/">
             <NavItem>Dashboard</NavItem>
           </IndexLinkContainer>
-          <LinkContainer to="/posts">
-            <NavItem>Posts</NavItem>
+          <LinkContainer to="/client">
+            <NavItem>Lista de Clientes</NavItem>
           </LinkContainer>
         </Nav>
         {Auth.authenticated() && <Nav className="pull-right">
@@ -52,9 +52,9 @@ export default () => {
         <Route path="/login" component={Login} />
         <Route path="/" component={App}>
           <IndexRoute component={Dashboard} />
-          <Route path="/posts" component={ClientsIndex} />
-          <Route path="/posts/new" component={PostsEdit} />
-          <Route path="/posts/:postId" component={PostsEdit} />
+          <Route path="/client" component={ClientsIndex} />
+          <Route path="/client/new" component={ClientsEdit} />
+          <Route path="/client/:clientId" component={ClientsEdit} />
         </Route>
       </Router>
     </Provider>
