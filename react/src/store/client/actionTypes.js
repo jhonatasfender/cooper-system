@@ -1,0 +1,10 @@
+export const FETCH_ONE = 'clients/FETCH_ONE';
+export const FETCH_ONE_SUCCESS = 'clients/FETCH_ONE_SUCCESS';
+export const FETCH_COLLECTION = 'clients/FETCH_COLLECTION';
+export const FETCH_COLLECTION_SUCCESS = 'clients/FETCH_COLLECTION_SUCCESS';
+export const CREATE = 'clients/CREATE_client';
+export const CREATE_SUCCESS = 'clients/CREATE_client_SUCCESS';
+export const UPDATE = 'clients/UPDATE';
+export const UPDATE_SUCCESS = 'clients/UPDATE_SUCCESS';
+export const DELETE = 'clients/DELETE';
+export const DELETE_SUCCESS = 'clients/DELETE_SUCCESS';

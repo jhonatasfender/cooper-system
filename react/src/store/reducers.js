@@ -3,11 +3,11 @@ import { routerReducer } from 'react-router-redux';
 
 import auth from './auth/reducer';
 import categories from './categories/reducer';
-import posts from './posts/reducer';
+import client from './client/reducer';
 
 export default combineReducers({
   auth,
   categories,
-  posts,
+  client,
   routing: routerReducer,
 });

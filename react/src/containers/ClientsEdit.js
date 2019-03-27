@@ -1,5 +1,5 @@
 import React from 'react';
-import { postsActions, postsSelectors } from '../store/posts/index';
+import { clientActions, clientSelectors } from '../store/client/index';
 import { connect } from 'react-redux';
 import InputMask from 'react-input-mask';
 import { isEqual } from 'lodash';
@@ -8,7 +8,7 @@ import ViaCep from 'react-via-cep';
 @connect(
   (state, props) => {
     return {
-      post: postsSelectors.getPost(state, props.params.postId),
+      client: clientSelectors.getClient(state, props.params.clientId),
     };
   }
 )
@@ -20,7 +20,7 @@ export class ClientsEdit extends React.Component {
 
   static propTypes = {
     params: React.PropTypes.object,
-    post: React.PropTypes.object,
+    client: React.PropTypes.object,
   };
 
   constructor(props, context) {
@@ -29,19 +29,25 @@ export class ClientsEdit extends React.Component {
     this.state = {
       ...this.state,
       clientId: this.props.params.clientId,
-      client: {name: '', cpf: ''}
+      client: {
+        name: '', 
+        cpf: '',
+        phone: '',
+        email: '',
+        cep: ''
+      }
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.post, this.state.post)) {
-      this.setState({...this.state, post: nextProps.post});
+    if (!isEqual(nextProps.client, this.state.client)) {
+      this.setState({...this.state, client: nextProps.client});
     }
   }
 
   componentDidMount() {
-    if (this.state.postId) {
-      this.context.store.dispatch(postsActions.fetchPost(this.props.params.postId));
+    if (this.state.clientId) {
+      this.context.store.dispatch(clientActions.fetchClient(this.props.params.clientId));
     }
   }
 
@@ -51,10 +57,11 @@ export class ClientsEdit extends React.Component {
   }
 
   handleSubmit() {
-    if (this.state.postId) {
-      this.context.store.dispatch(postsActions.updatePost(this.state.post));
+    if (this.state.clientId) {
+      this.context.store.dispatch(clientActions.updateClient(this.state.client));
     } else {
-      this.context.store.dispatch(postsActions.createPost(this.state.post));
+      console.log(this.state.client);
+      this.context.store.dispatch(clientActions.createClient(this.state.client));
     }
   }
 
@@ -123,10 +130,10 @@ export class ClientsEdit extends React.Component {
                     <InputMask mask="99999-999"
                       type="text"
                       className="form-control"
-                      value={this.state.cep} 
-                      onChange={this.handleChangeCep} />
+                      value={this.state.client.cep} 
+                      onChange={this.handleChange.bind(this, 'cep')} />
                     <span className="input-group-btn">
-                      <button className="btn btn-default" type="button" onClick={fetch}>Go!</button>
+                      <button className="btn btn-default" type="button" onClick={fetch}>PESQUISAR</button>
                     </span>
                   </div>
               </div>
@@ -137,7 +144,7 @@ export class ClientsEdit extends React.Component {
 
 
         <button type="submit" className="btn btn-default">
-          {this.state.clientId ? 'Update' : 'Create' } Post
+          {this.state.clientId ? 'Alterar' : 'Cadastrar' } Cliente
         </button>
       </form>
     );

@@ -13,8 +13,6 @@ public class CorsFilter implements WebFilter {
 
 	public Mono<Void> filter(final ServerWebExchange serverWebExchange,
 			final WebFilterChain webFilterChain) {
-		// Adapted from
-		// https://sandstorm.de/de/blog/post/cors-headers-for-spring-boot-kotlin-webflux-reactor-project.html
 		serverWebExchange.getResponse().getHeaders()
 				.add("Access-Control-Allow-Origin", "*");
 		serverWebExchange

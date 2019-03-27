@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router';
 import { ClientsList } from '../components/client/ClientsList';
-import { postsActions, postsSelectors } from '../store/posts/index';
+import { clientActions, clientSelectors } from '../store/client/index';
 
 @connect(
   (state) => {
     return {
-      params: postsSelectors.getParams(state),
-      client: postsSelectors.getPosts(state),
+      params: clientSelectors.getParams(state),
+      client: clientSelectors.getClient(state),
     };
   }
 )
@@ -30,11 +30,11 @@ export class ClientsIndex extends React.Component {
   }
 
   fetchClients() {
-    this.context.store.dispatch(postsActions.fetchPosts());
+    this.context.store.dispatch(clientActions.fetchClient());
   }
 
-  deleteClient(post) {
-    this.context.store.dispatch(postsActions.deletePost(post));
+  deleteClient(client) {
+    this.context.store.dispatch(clientActions.deleteClient(client));
   }
 
   render() {
@@ -50,7 +50,7 @@ export class ClientsIndex extends React.Component {
             <Link to="/client/new" className="btn btn-primary">Cadastar Cliente</Link>
           </div>
         </div>
-        { client.length > 0 && <ClientsList clients={client} onDelete={this.deleteClient}/> }
+        { client && client.length > 0 && <ClientsList clients={client} onDelete={this.deleteClient}/> }
       </div>
     );
   }
