@@ -60,7 +60,13 @@ export class ClientsEdit extends React.Component {
     if (this.state.clientId) {
       this.context.store.dispatch(clientActions.updateClient(this.state.client));
     } else {
-      console.log(this.state.client);
+      this.state.client.cpf = this.state.client.cpf.replace(/[.-]/g,'');
+      console.log(this.state.client.phone);
+      let phone = this.state.client.phone.replace(/[()\s-]/g,'');
+      this.state.client.phone = [];
+      this.state.client.phone.push({
+        number: phone
+      });
       this.context.store.dispatch(clientActions.createClient(this.state.client));
     }
   }
@@ -109,10 +115,11 @@ export class ClientsEdit extends React.Component {
           <ViaCep cep={this.state.client.cep} lazy>
           { 
             ({ data, loading, error, fetch }) => {
+              console.log(data,error);
                 if (loading) {
                   return <p>loading...</p>
                 }
-                if (error) {
+                if (!data && error) {
                   return <p>error</p>
                 }
                 if (data) {
@@ -122,6 +129,39 @@ export class ClientsEdit extends React.Component {
                       CIDADE: {data.localidade} <br/>
                       UF: {data.uf} <br/>
                     </p>
+                    <div className="form-group">
+                      <label className="label-control">CEP</label>
+                        <div className="input-group">
+                          <InputMask mask="99999-999"
+                            type="text"
+                            className="form-control"
+                            disabled
+                            value={data.cep} 
+                            onChange={this.handleChange.bind(this, 'cep')} />
+                        </div>
+                      </div>
+                    <div className="form-group">
+                      <label className="label-control">CEP</label>
+                        <div className="input-group">
+                          <InputMask mask="99999-999"
+                            type="text"
+                            className="form-control"
+                            disabled
+                            value={data.cep} 
+                            onChange={this.handleChange.bind(this, 'cep')} />
+                        </div>
+                      </div>
+                    <div className="form-group">
+                      <label className="label-control">CEP</label>
+                        <div className="input-group">
+                          <InputMask mask="99999-999"
+                            type="text"
+                            className="form-control"
+                            disabled
+                            value={data.cep} 
+                            onChange={this.handleChange.bind(this, 'cep')} />
+                        </div>
+                      </div>
                   </div>
                 }
                 return <div className="form-group">

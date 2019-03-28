@@ -1,6 +1,4 @@
-import { keyBy } from 'lodash';
 import axios from 'axios';
-import querystring from 'querystring';
 import { Observable } from 'rxjs/Observable';
 import { push } from 'react-router-redux';
 
@@ -24,7 +22,7 @@ export function fetchClients(action$) {
       return Observable.fromPromise(
         axios.get(`http://localhost:8888/list`)
       ).map(res => {
-        clientsActions.fetchClientsSuccess(res.data, params)
+        return clientsActions.fetchClientsSuccess(res.data, params)
       });
     });
 }
@@ -35,9 +33,9 @@ export function updateClient(action$) {
     .switchMap(client => {
       return Observable.merge(
         Observable.fromPromise(
-          axios.put(`http://localhost:8888/clients/${client.id}`, client)
+          axios.put(`http://localhost:8888/client/${client.id}`, client)
         ).map(res => clientsActions.updateClientSuccess(res.data)),
-        Observable.of(push('/clients'))
+        Observable.of(push('/client'))
       );
     });
 }
@@ -49,8 +47,11 @@ export function createClient(action$) {
       return Observable.merge(
         Observable.fromPromise(
           axios.post(`http://localhost:8888/add`, client)
-        ).map(res => clientsActions.createClientSuccess(res.data)),
-        Observable.of(push('/clients'))
+        ).map(res => {
+          console.log(res);
+          return clientsActions.createClientSuccess(res.data)
+        }),
+        Observable.of(push('/client'))
       );
     });
 }
@@ -60,7 +61,7 @@ export function deleteClient(action$) {
     .map(action => action.payload)
     .switchMap(client => {
       return Observable.fromPromise(
-        axios.delete(`http://localhost:8888/clients/${client.id}`)
+        axios.delete(`http://localhost:8888/client/${client.id}`)
       ).map(res => clientsActions.deleteClientSuccess(client));
     });
 }

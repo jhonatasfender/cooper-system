@@ -8,11 +8,10 @@ import { clientActions, clientSelectors } from '../store/client/index';
   (state) => {
     return {
       params: clientSelectors.getParams(state),
-      client: clientSelectors.getClient(state),
+      client: clientSelectors.getClients(state),
     };
   }
 )
-
 export class ClientsIndex extends React.Component {
   static contextTypes = {
     router: React.PropTypes.object,
@@ -30,7 +29,7 @@ export class ClientsIndex extends React.Component {
   }
 
   fetchClients() {
-    this.context.store.dispatch(clientActions.fetchClient());
+    this.context.store.dispatch(clientActions.fetchClients({}));
   }
 
   deleteClient(client) {
@@ -38,10 +37,7 @@ export class ClientsIndex extends React.Component {
   }
 
   render() {
-    const {
-      params,
-      client,
-    } = this.props;
+    const { client } = this.props;
 
     return (
       <div>

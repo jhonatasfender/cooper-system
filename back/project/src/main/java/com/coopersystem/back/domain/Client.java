@@ -1,6 +1,7 @@
 package com.coopersystem.back.domain;
 
-import java.awt.List;
+
+import java.util.List;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.Id;
@@ -11,22 +12,26 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public final class Client {
 	@Id
 	private String id;
+	
 	@Field
 	private String name;
+	
 	@Field
 	private String cpf;
+	
 	@Field
 	private String email;
+	
 	@Field
 	private Address address;
+	
 	@Field
-	private List phone;
+	private List<Phone> phone;
 
-	public Client() {
-	}
+	public Client() { }
 
 	public Client(String name, String cpf, String email, Address address,
-			List phone) {
+			List<Phone> phone) {
 		this.setName(name);
 		this.setCpf(cpf);
 		this.setEmail(email);
@@ -66,11 +71,11 @@ public final class Client {
 		this.email = email;
 	}
 
-	public List getPhone() {
+	public List<Phone> getPhone() {
 		return phone;
 	}
 
-	public void setPhone(List phone) {
+	public void setPhone(List<Phone> phone) {
 		this.phone = phone;
 	}
 
